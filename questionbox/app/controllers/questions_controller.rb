@@ -15,12 +15,19 @@ class QuestionsController < ApplicationController
 
   # GET /questions/new
   def new
-    @question = Question.new
+    if current_user
+      @question = Question.new
+    else
+      redirect_to questions_path, notice: 'MUST BE LOGGED IN TO CREATE A QUESTION'
+    end
   end
 
   # GET /questions/1/edit
   def edit
     @question = Question.find(params[:id])
+    unless current_user.id == @question.user_id
+      redirect_to questions_path 
+    end
   end
 
   # POST /questions
@@ -42,14 +49,18 @@ class QuestionsController < ApplicationController
   # PATCH/PUT /questions/1
   # PATCH/PUT /questions/1.json
   def update
-    respond_to do |format|
-      if @question.update(question_params)
-        format.html { redirect_to @question, notice: 'Question was successfully updated.' }
-        format.json { render :show, status: :ok, location: @question }
-      else
-        format.html { render :edit }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
+    if current_user.id == @question.user_id
+      respond_to do |format|
+        if @question.update(question_params)
+          format.html { redirect_to @question, notice: 'Question was successfully updated.' }
+          format.json { render :show, status: :ok, location: @question }
+        else
+          format.html { render :edit }
+          format.json { render json: @question.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_to questions_path
     end
   end
 

@@ -1,7 +1,11 @@
 class AnswersController < ApplicationController
 
     def new
-        @answer = Answer.new
+        if current_user
+            @answer = Answer.new
+        else
+            redirect_to questions_path
+        end
     end
 
     def index
@@ -9,13 +13,17 @@ class AnswersController < ApplicationController
     end
 
     def create
-        @answer = Answer.new(answer_params)
-        respond_to do |format|
-            if @answer.save
-                format.html { redirect_to root_path, notice: 'Comment was successfully created.' }
-            else
-                format.html { render :new }    
-            end  
+        if current_user
+            @answer = Answer.new(answer_params)
+            respond_to do |format|
+                if @answer.save
+                    format.html { redirect_to root_path, notice: 'Answer was successful.' }
+                else
+                    format.html { render :new }    
+                end  
+            end
+        else
+            redirect_to questions_path
         end
     end
 

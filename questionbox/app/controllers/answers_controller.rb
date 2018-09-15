@@ -19,5 +19,15 @@ class AnswersController < ApplicationController
         end
     end
 
+    private
+    
+        def set_answer
+            @answer = answer.find(params[:id])
+        end
+
+    
+        def answer_params
+            params.require(:answer).permit(:question_id, :body, :user_id)
+        end
 
 end

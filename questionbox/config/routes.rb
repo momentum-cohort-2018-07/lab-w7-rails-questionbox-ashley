@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :questions
-  resources :answers, only: [:new, :index, :show, :create]
-  resources :users, only: [:new, :create]
+  resources :answers
+  resources :users, only: [:new, :show, :create]
   resources :session, only: [:new, :create, :destroy]
 
   root 'questions#index'

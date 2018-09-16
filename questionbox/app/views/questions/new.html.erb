@@ -15,7 +15,7 @@
     <%= render "navigation" %>
   </header>
 
-<%= form_with scope: :question, url: questions_path, local: true do |form| %>
+<%= form_with(model: question, local: true) do |form| %>
 
     <% if @question.errors.any? %>
         <div class="alert alert-danger" role="alert">
@@ -40,8 +40,9 @@
   <div class="input-block col-md-3">
     <%= form.text_field :user_id, :class => 'form-control', :placeholder => 'User' %>
   </div> <br>
-  <div  class="input-block col-md-3">
+  <div  class="actions" class="input-block col-md-3">
   <%= form.submit "Create Question", :class => "btn btn-outline-success" %>
   </div>
   <%= form.hidden_field :user_id, :value => current_user.id %>
+
 <% end %>

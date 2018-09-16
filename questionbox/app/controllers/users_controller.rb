@@ -4,13 +4,24 @@ class UsersController < ApplicationController
         @user = User.new
     end
 
+    def show
+        @user = User.find(params[:id])
+    end
+
     def create
-        @user = User.new(params.require(:user).permit(:name, :username, :password))
+        @user = User.new(user_params)
         if @user.save
-            redirect_to root_path, notice: 'User was successfully created.'
+          UserMailer.signup(@user).deliver_now
+          redirect_to @user
         else
-            render :new
+          render new_user_path
         end
+    end
+
+    private
+
+    def user_params
+        params.require(:user).permit(:name, :username, :password, :password_confirmation, :email)
     end
 
 end

@@ -30,15 +30,19 @@
             </ul>
         </div>
     <% end %>
-<h2 class = "input-block col-md-3">Answer</h2>
+<h3 class = "input-block col-md-3">Edit Answer</h3>
   <div  class="input-block col-md-3">
     <%= form.text_area :answer_body, :class => 'form-control', :placeholder => 'Post answer here' %>
   </div> <br>
   <div class="input-block col-md-3">
     <%= form.text_field :user_id, :class => 'form-control', :placeholder => 'User' %>
   </div> <br>
-  <div  class="input-block col-md-3">
-  <%= form.submit "Submit Answer", new_answer_path :class => "btn btn-outline-success" %>
-  </div>
+
   <%= form.hidden_field :user_id, :value => current_user.id %>
+  <%= form.hidden_field :question_id, :value => answer.question.id %>
+
+  <div  class="input-block col-md-3">
+  <%= form.submit "Submit Update", :class => "btn btn-outline-success" %>
+  </div>
+  
 <% end %>

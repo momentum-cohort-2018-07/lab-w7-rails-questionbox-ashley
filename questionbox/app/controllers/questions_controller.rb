@@ -4,14 +4,15 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
   def index
-    @questions = Question.all
+    # @questions = Question.all
+    @questions = Question.page(params[:page])
   end
 
-  def my_questions
-    @questions = Question
-    .group(:id)
-    .where(user_id: current_user.id)
-  end
+  # def my_questions
+  #   @questions = Question
+  #   .group(:id)
+  #   .where(user_id: current_user.id)
+  # end
 
   # GET /questions/1
   # GET /questions/1.json
@@ -88,6 +89,6 @@ class QuestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.require(:question).permit(:title, :question_body, :user_id, :url)
+      params.require(:question).permit(:title, :question_body, :user_id, :image)
     end
 end

@@ -7,6 +7,12 @@ class QuestionsController < ApplicationController
     @questions = Question.all
   end
 
+  def my_questions
+    @questions = Question
+    .group(:id)
+    .where(user_id: current_user.id)
+  end
+
   # GET /questions/1
   # GET /questions/1.json
   def show
@@ -82,6 +88,6 @@ class QuestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.require(:question).permit(:title, :body, :user_id)
+      params.require(:question).permit(:title, :question_body, :user_id, :url)
     end
 end

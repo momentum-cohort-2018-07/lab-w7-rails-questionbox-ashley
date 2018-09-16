@@ -1,5 +1,4 @@
 class AnswersController < ApplicationController
-
     def new
         if current_user
             @answer = Answer.new
@@ -10,6 +9,10 @@ class AnswersController < ApplicationController
 
     def index
         @answers = Answer.all
+    end
+
+    def show
+        @answer = Answer.find(params[:id])
     end
 
     def create
@@ -29,13 +32,8 @@ class AnswersController < ApplicationController
 
     private
     
-        def set_answer
-            @answer = answer.find(params[:id])
-        end
-
-    
         def answer_params
-            params.require(:answer).permit(:question_id, :body, :user_id)
+            params.require(:answer).permit(:answer_body, :question_id, :user_id)
         end
 
 end

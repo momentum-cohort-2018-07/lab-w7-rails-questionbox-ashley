@@ -9,7 +9,7 @@ class SessionController < ApplicationController
       redirect_to questions_path
     else
       flash[:error_message] = "Invalid username or password."
-      redirect_to new_session_path
+      redirect_to questions_path
     end
   end
 

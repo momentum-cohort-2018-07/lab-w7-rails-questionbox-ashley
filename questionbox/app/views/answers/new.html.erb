@@ -15,7 +15,7 @@
     <%= render "navigation" %>
   </header>
 
-<%= form_with url: question_answers_path(answer.question), local: true do |form| %>
+<%= form_with url: question_answers_path, scope: :answer, local: true do |form| %>
 
     <% if @answer.errors.any? %>
         <div class="alert alert-danger" role="alert">
@@ -30,7 +30,7 @@
             </ul>
         </div>
     <% end %>
-<h3 class = "input-block col-md-3">Edit Answer</h3>
+<h3 class = "input-block col-md-3">Answer</h3>
   <div  class="input-block col-md-3">
     <%= form.text_area :answer_body, :class => 'form-control', :placeholder => 'Post answer here' %>
   </div> <br>
@@ -39,10 +39,10 @@
   </div> <br>
 
   <%= form.hidden_field :user_id, :value => current_user.id %>
-  <%= form.hidden_field :question_id, :value => answer.question.id %>
+  <%= form.hidden_field :question_id, :value => answer.id %>
 
   <div  class="input-block col-md-3">
-  <%= form.submit "Submit Update", :class => "btn btn-outline-success" %>
+  <%= form.submit "Submit Answer", :class => "btn btn-outline-success" %>
   </div>
   
 <% end %>

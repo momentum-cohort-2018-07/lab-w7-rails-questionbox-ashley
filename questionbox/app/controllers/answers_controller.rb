@@ -2,34 +2,35 @@ class AnswersController < ApplicationController
     before_action :set_answer, only: [:show, :update, :destroy]
     
     def index
-        @question = Question.find(params[:question_id])
+        @answer = Answer.all
+        # @question = Question.find(params[:question_id])
     end
     
     def new
-        if current_user
-            @answer = Answer.new
-        else
-            redirect_to questions_path, notice: 'MUST BE LOGGED IN TO ANSWER A QUESTION'
-        end
+        # @question = Question.find(params[:id])
+          if current_user
+              @question = Question.find(params[:question_id])
+              @answer = Answer.new
+          else
+            flash[:notice] = "You must be logged in to answer."
+            redirect_to questions_path
+          end
     end
+    
+    
 
     def show
         @answer = Answer.find(params[:id])
+        @question = @questions.answers.build
     end
 
     def create
         if current_user
-            @answer = Answer.new(answer_params)
-            @answer.valid = false
+            @question = Question.find(params[:question_id])
+            @answer = Answer.new(question_id: @question.id)
+            # @answer.valid = false
             respond_to do |format|
                 if @answer.save
-                    question_id = @answer.question_id
-                    user_id = ''
-                    email = ''
-                      @question = Question.find_by("id = ?", question_id)
-                      user_id = @question.user_id
-                      @user2 = User.find_by("id = ?", user_id)
-                      UserMailer.newanswer(@user2).deliver_now
                     format.html { redirect_to questions_path, notice: 'Answer was successful.' }
                 else
                     format.html { render :new }    
@@ -64,9 +65,9 @@ class AnswersController < ApplicationController
 
     private
 
-        def set_answer
-            @answer = Answer.find(params[:id])
-        end
+        # def set_answer
+        #     @answer = @question.answers.find(params[:id])
+        # end
     
         def answer_params
             params.require(:answer).permit(:answer_body, :question_id, :user_id, :valid)

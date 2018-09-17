@@ -4,8 +4,8 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
   def index
-    # @questions = Question.all
-    @questions = Question.page(params[:page])
+    @questions = Question.all
+    # @questions = Question.all(params[:id])
   end
 
   # def my_questions
@@ -18,6 +18,7 @@ class QuestionsController < ApplicationController
   # GET /questions/1.json
   def show
     @question = Question.find(params[:id])
+    @answers = @question.answers
   end
 
   # GET /questions/new
@@ -44,7 +45,7 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       if @question.save
-        format.html { redirect_to @question, notice: 'Question was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Question was successfully created.' }
         format.json { render :show, status: :created, location: @question }
       else
         format.html { render :new }
@@ -59,7 +60,7 @@ class QuestionsController < ApplicationController
     if current_user.id == @question.user_id
       respond_to do |format|
         if @question.update(question_params)
-          format.html { redirect_to @question, notice: 'Question was successfully updated.' }
+          format.html { redirect_to root_path, notice: 'Question was successfully updated.' }
           format.json { render :show, status: :ok, location: @question }
         else
           format.html { render :edit }
@@ -84,7 +85,7 @@ class QuestionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_question
-      @question = Question.find(params[:id])
+      @question = Question.find(params[:question_id] || params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

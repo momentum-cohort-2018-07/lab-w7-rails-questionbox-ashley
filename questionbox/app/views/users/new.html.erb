@@ -42,10 +42,6 @@
         </div>
       <% end %>
       
-
-      <div class="input-block col-md-3">
-        <%= form.text_field :name, :class => 'form-control', :placeholder => 'Name' %>
-      </div>
       <br> 
       <div class="input-block col-md-3">
         <%= form.text_field :username, :class => 'form-control', :placeholder => 'Username' %>
@@ -53,6 +49,14 @@
       <br>
       <div class="input-block col-md-3">
         <%= form.password_field :password, :class => 'form-control', :placeholder => 'Password' %>
+      </div>
+      <br>
+      <div class="input-block col-md-3">
+        <%= form.password_field :password_confirmation, :class => 'form-control', :placeholder => 'Confirm Password' %>
+      </div>
+      <br>
+      <div class="input-block col-md-3">
+        <%= form.text_field :email, :class => 'form-control', :placeholder => 'Email' %>
       </div>
       <br>
       <div class="input-block col-md-3">

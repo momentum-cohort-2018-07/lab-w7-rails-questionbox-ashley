@@ -15,7 +15,7 @@
     <%= render "navigation" %>
   </header>
 
-<%= form_with(model: question, local: true) do |form| %>
+  <%= form_with scope: :question, url: questions_path, local: true do |form| %>
 
     <% if @question.errors.any? %>
         <div class="alert alert-danger" role="alert">
@@ -36,6 +36,9 @@
   </div> <br>
   <div  class="input-block col-md-3">
     <%= form.text_area :question_body, :class => 'form-control', :placeholder => 'Post question here' %>
+  </div> <br>
+  <div  class="input-block col-md-3">
+    <%= form.file_field :image, :class => 'form-control' %>
   </div> <br>
   <div class="input-block col-md-3">
     <%= form.text_field :user_id, :class => 'form-control', :placeholder => 'User' %>

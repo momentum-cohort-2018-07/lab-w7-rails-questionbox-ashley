@@ -40,6 +40,8 @@
           <td><%= question.user_id %></td>
           <td><%= link_to 'Show', question %></td>
           <td><%= link_to 'Answer', new_answer_path %></td>
+          <%# <% if current_user && current_user == @question.user_id %> 
+          <%# <td><%= link_to 'Edit', edit_question_path(@question.id) %> 
           <td><%= link_to 'Delete', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
      <% end %>

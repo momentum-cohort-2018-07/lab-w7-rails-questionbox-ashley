@@ -2,7 +2,7 @@ class AnswersController < ApplicationController
     before_action :set_answer, only: [:show, :update, :destroy]
     
     def index
-        @answer = Answer.all
+        @answers = Answer.all
         # @question = Question.find(params[:question_id])
     end
     
@@ -28,10 +28,9 @@ class AnswersController < ApplicationController
         if current_user
             @question = Question.find(params[:question_id])
             @answer = Answer.new(question_id: @question.id)
-            # @answer.valid = false
             respond_to do |format|
                 if @answer.save
-                    format.html { redirect_to questions_path, notice: 'Answer was successful.' }
+                    format.html { redirect_to answer_path, notice: 'Answer was successful.' }
                 else
                     format.html { render :new }    
                 end  

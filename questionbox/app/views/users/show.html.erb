@@ -20,14 +20,15 @@
   <main role="main" class="container">
     <div class="jumbotron">
       <h1><%= @user.username %></h1>
-      <p class="lead">Member since <%= @user.created_at.year %>.</p>
-      <strong>Number of Question: <%= @questions.count %> </strong>
+      <p class="small">Member since <%= @user.created_at %>.</p>
+      <strong>Number of Questions: <%= @questions.count %> </strong><br>
+      <%# <strong>Number of Answers: <%= @answer.count %></strong> 
     </div>
   </main>
 
 
-  <%# <% @user.questions.any? do %> %>
+  <%# <% @user.questions.any? do %> 
 
   <%# <div class='mt-5'> %>
-    <%# <%= render 'shared/question_list2', questions: @questions %> %>
+    <%# <%= render 'shared/question_list2', questions: @questions %> 
   <%# </div> %>

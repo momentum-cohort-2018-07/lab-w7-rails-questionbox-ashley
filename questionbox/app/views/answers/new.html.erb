@@ -15,7 +15,7 @@
     <%= render "navigation" %>
   </header>
 
-<%= form_with url: new_answer_path, scope: :answer, local: true do |form| %>
+<%= form_with url: question_answers_path, scope: :answer, local: true do |form| %>
 
     <% if @answer.errors.any? %>
         <div class="alert alert-danger" role="alert">

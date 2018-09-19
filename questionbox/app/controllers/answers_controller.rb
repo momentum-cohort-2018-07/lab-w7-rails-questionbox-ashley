@@ -3,7 +3,7 @@ class AnswersController < ApplicationController
     
     def index
         @answers = Answer.all
-        # @question = Question.find(params[:question_id])
+        @question = Question.find(params[:question_id])
     end
     
     def new
@@ -26,11 +26,12 @@ class AnswersController < ApplicationController
 
     def create
         if current_user
-            @question = Question.find(params[:question_id])
-            @answer = Answer.new(question_id: @question.id)
+            @answer = Answer.new(answer_params)
+            @answer.question_id = params[:question_id]
+            # @answer.answer_id = params[:answer_id]
             respond_to do |format|
                 if @answer.save
-                    format.html { redirect_to answer_path, notice: 'Answer was successful.' }
+                    format.html { redirect_to question_answers_path, notice: 'Answer was successful.' }
                 else
                     format.html { render :new }    
                 end  
@@ -64,9 +65,9 @@ class AnswersController < ApplicationController
 
     private
 
-        # def set_answer
-        #     @answer = @question.answers.find(params[:id])
-        # end
+        def set_answer
+            @answer = @question.answers.find(params[:id])
+        end
     
         def answer_params
             params.require(:answer).permit(:answer_body, :question_id, :user_id, :valid)

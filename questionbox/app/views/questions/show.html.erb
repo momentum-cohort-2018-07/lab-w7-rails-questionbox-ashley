@@ -19,12 +19,6 @@
 
   <%= render 'form', question: @question %>
 
-  <% if @question.image.attached? %>
-    <p><strong>Image:</strong> </p>
-    <%= image_tag(@question.image) %>
-  <% end %>   
-
-
   <%= link_to 'Home', questions_path %> |
   <% if current_user && current_user == @question.user_id %>
   <%= link_to 'Edit', edit_question_path(@question) %> |

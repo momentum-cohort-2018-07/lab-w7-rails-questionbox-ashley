@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
-  resources :questions
-  resources :answers
   resources :users, only: [:new, :show, :create]
   resources :session, only: [:create, :destroy]
 
+  resources :questions do
+    resources :answers
+  
   root 'questions#index'
 
   namespace :api do
@@ -16,4 +17,5 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
     end
   end
+end
 end

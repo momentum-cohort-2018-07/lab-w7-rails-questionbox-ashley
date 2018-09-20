@@ -6,7 +6,7 @@ class SessionController < ApplicationController
     user = User.find_by_username(params[:username])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to questions_path
+      redirect_to new_user_path
     else
       flash[:error_message] = "Invalid username or password."
       redirect_to questions_path

@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-  before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :set_question, only: [:show, :update, :destroy]
 
   # GET /questions
   # GET /questions.json
@@ -42,10 +42,9 @@ class QuestionsController < ApplicationController
   # POST /questions.json
   def create
     @question = Question.new(question_params)
-
     respond_to do |format|
       if @question.save
-        format.html { redirect_to root_path, notice: 'Question was successfully created.' }
+        format.html { redirect_to questions_root_path, notice: 'Question was successfully created.' }
         format.json { render :show, status: :created, location: @question }
       else
         format.html { render :new }

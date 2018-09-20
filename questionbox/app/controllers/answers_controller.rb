@@ -1,5 +1,5 @@
 class AnswersController < ApplicationController
-    before_action :set_answer, only: [:show, :update, :destroy]
+    before_action :set_answer, only: [:show, :update, :create, :destroy]
     
     def index
         @answers = Answer.all
@@ -26,9 +26,9 @@ class AnswersController < ApplicationController
 
     def create
         if current_user
-            @answer = Answer.new(answer_params)
+            @answer = Answer.new(answer_params) || (params[:id])
             @answer.question_id = params[:question_id]
-            # @answer.answer_id = params[:answer_id]
+            
             respond_to do |format|
                 if @answer.save
                     format.html { redirect_to question_answers_path, notice: 'Answer was successful.' }
@@ -66,11 +66,11 @@ class AnswersController < ApplicationController
     private
 
         def set_answer
-            @answer = @question.answers.find(params[:id])
+            @answer = Answer.new(answer_params) || (params[:id])
         end
     
         def answer_params
-            params.require(:answer).permit(:answer_body, :question_id, :user_id, :valid)
+            params.require(:answer).permit(:answer_body, :question_id, :user_id)
         end
 
 end

@@ -2,7 +2,7 @@ class AnswersController < ApplicationController
     before_action :set_answer, only: [:show, :update, :create, :destroy]
     
     def index
-        @answers = Answer.all
+        @answers = Answer.page(params[:page])
         @question = Question.find(params[:question_id])
     end
     

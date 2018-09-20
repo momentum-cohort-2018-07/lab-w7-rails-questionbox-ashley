@@ -21,6 +21,10 @@ class UsersController < ApplicationController
 
     private
 
+    def set_user
+        @user = User.new(user_params) 
+    end
+
     def user_params
         params.require(:user).permit(:username, :password, :password_confirmation, :email)
     end

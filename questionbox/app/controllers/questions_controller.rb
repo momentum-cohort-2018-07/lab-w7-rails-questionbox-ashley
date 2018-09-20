@@ -1,10 +1,11 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:new, :show]
 
   # GET /questions
   # GET /questions.json
   def index
-    @questions = Question.all
+    @questions = Question.page(params[:page])
     # @questions = Question.all(params[:id])
   end
 
@@ -65,9 +66,9 @@ class QuestionsController < ApplicationController
           format.html { render :edit }
           format.json { render json: @question.errors, status: :unprocessable_entity }
         end
-      end
-    else
-      redirect_to questions_path
+    end
+      else
+        redirect_to questions_path
     end
   end
 
@@ -92,3 +93,4 @@ class QuestionsController < ApplicationController
       params.require(:question).permit(:title, :question_body, :user_id, :image)
     end
 end
+

@@ -4,24 +4,16 @@ class UserMailer < ApplicationMailer
     # with the following lookup:
     #
     #   en.user_mailer.signup.subject
-    
-    def newanswer(user)
-      @user = user
-      @greeting = "You have a new answer from QuestionBox!"
-      mail(
-        to: @user.email,
-        from: 'awhitted4@gmail.com',
-        subject: 'Answer from QuestionBox'
-      )
-    end
+    #
     def signup(user)
       @user = user
-       
-      @greeting = "Thank you for subscribing to QuestionBox! Your email address is #{@user.email}."
+      @greeting = "Thanks for signing up! Your email address is #{@user.email}."
+  
       mail(
         to: @user.email,
-        from: 'awhitted4@gmail.com',
+        from: 'from@example.com',
         subject: 'Welcome to QuestionBox!'
       )
     end
+  
 end

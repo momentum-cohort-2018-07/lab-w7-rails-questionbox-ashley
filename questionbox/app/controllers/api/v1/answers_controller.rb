@@ -1,4 +1,4 @@
-class Api::V1::AnswersController < ApplicationController
+class Api::V1::AnswersController < Api::V1::BaseController
     before_action :set_answer, only: [:destroy]
     before_action :set_user, only: [:destroy]
     skip_before_action :verify_authentication, only: [:index]

@@ -1,17 +1,24 @@
 class Api::V1::QuestionsController < ApplicationController
-    before_action :set_question, only: [:show, :update, :destroy, :set_user]
+  include ActionController::HttpAuthentication::Token::ControllerMethods
+    before_action :set_question, only: [:show, :update, :destroy]
     before_action :set_user, only: [:destroy]
-    skip_before_action :verify_authentication, only: [:index]
+    before_action :verify_authentication, only: [:index, :show]
+
+    helper_method :current_user
+    helper_method :title
+    helper_method :show_question
     
     # GET /questions
     # GET /questions.json
     def index
       @questions = Question.all
+      render json: @questions
     end
   
     # GET /questions/1
     # GET /questions/1.json
     def show
+      render json: @question
     end
   
     # POST /questions

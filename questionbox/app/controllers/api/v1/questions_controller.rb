@@ -1,12 +1,11 @@
 class Api::V1::QuestionsController < ApplicationController
-  # include ActionController::HttpAuthentication::Token::ControllerMethods
+  before_action :verify_authentication, only: [:index, :show]
     before_action :set_question, only: [:show, :update, :destroy]
     before_action :set_user, only: [:destroy]
-    before_action :verify_authentication, only: [:index, :show]
-
-    helper_method :current_user
-    helper_method :title
-    helper_method :show_question
+  
+    # helper_method :current_user
+    # helper_method :title
+    # helper_method :show_question
     
     # GET /questions
     # GET /questions.json
@@ -28,6 +27,14 @@ class Api::V1::QuestionsController < ApplicationController
   
       if @question.save
         render json: @question, status: :created 
+      else
+        render json: @question.errors, status: :unprocessable_entity
+      end
+    end
+
+    def update
+      if @question.update(question_params)
+        render json: @question
       else
         render json: @question.errors, status: :unprocessable_entity
       end

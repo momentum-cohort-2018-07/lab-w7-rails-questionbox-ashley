@@ -1,4 +1,5 @@
 class AnswersController < ApplicationController
+    skip_before_action :verify_authentication
     before_action :set_answer, only: [:show, :update, :create, :destroy]
     
     def index

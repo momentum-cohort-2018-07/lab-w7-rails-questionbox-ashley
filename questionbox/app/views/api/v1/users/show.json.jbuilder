@@ -13,9 +13,10 @@ json.links do
   json.data do
     json.id @user.id
     json.attributes do
+      json.api_token @user.api_token
       json.username @user.username
       json.email @user.email
       json.password_digest @user.password_digest
-      json.password_confirmation @user.password_confirmation
+      # json.password_confirmation @user.password_confirmation
     end
 end

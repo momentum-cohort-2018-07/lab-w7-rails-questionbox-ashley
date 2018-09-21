@@ -1,5 +1,7 @@
 class Api::V1::SessionsController < ApplicationController
-    def create
+  skip_before_action :verify_authentication
+  
+  def create
       user = User.find_by_username(params[:username])
   
       if user && user.authenticate(params[:password])

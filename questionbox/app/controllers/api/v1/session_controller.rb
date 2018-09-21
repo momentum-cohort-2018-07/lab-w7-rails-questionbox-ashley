@@ -1,4 +1,4 @@
-class Api::V1::SessionsController < Api::V1::BaseController
+class Api::V1::SessionsController < ApplicationController
     def create
       user = User.find_by_username(params[:username])
   

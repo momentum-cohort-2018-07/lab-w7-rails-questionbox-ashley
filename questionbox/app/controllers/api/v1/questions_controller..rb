@@ -1,5 +1,5 @@
 class Api::V1::QuestionsController < ApplicationController
-  include ActionController::HttpAuthentication::Token::ControllerMethods
+  # include ActionController::HttpAuthentication::Token::ControllerMethods
     before_action :set_question, only: [:show, :update, :destroy]
     before_action :set_user, only: [:destroy]
     before_action :verify_authentication, only: [:index, :show]
